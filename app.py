@@ -388,8 +388,14 @@ with tab6:
     colx, coly = st.columns(2)
     x_var = colx.selectbox("X axis", num_cols, index=0)
     y_var = coly.selectbox("Y axis", num_cols, index=1)
-    fig2 = px.scatter(df.sample(min(len(df), 1000), random_state=1), x=x_var, y=y_var,
-                      trendline="ols", opacity=0.5, title=f"{x_var} vs {y_var}")
+
+    fig2: go.Figure = px.scatter(df.sample(min(len(df), 1000), random_state=1),
+    x=x_var,
+    y=y_var,
+    opacity=0.5,
+    title=f"{x_var} vs {y_var}"
+)
+
     st.plotly_chart(fig2, use_container_width=True)
 
     max_corr = corr.where(~np.eye(len(corr), dtype=bool)).abs().max().max()
